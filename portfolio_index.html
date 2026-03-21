@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tejaruthwik Yadav — Mechanical Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #FF6B1A;
+  --orange-dim: rgba(255,107,26,0.15);
+  --blue: #1A9FFF;
+  --steel: #8BA8BE;
+  --bg: #080B0F;
+  --bg2: #0D1117;
+  --bg3: #111820;
+  --line: rgba(139,168,190,0.12);
+  --text: #C8D8E8;
+  --text-dim: rgba(200,216,232,0.45);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── Custom Cursor ─────────────────────────────── */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  position: fixed;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,107,26,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.15s, width 0.2s, height 0.2s, opacity 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+/* ── Blueprint Grid Background ─────────────────── */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px),
+    linear-gradient(rgba(139,168,190,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,168,190,0.04) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  pointer-events: none;
+}
+
+/* ── Canvas for particles ──────────────────────── */
+#particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ── Nav ───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: rgba(8,11,15,0.85);
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--orange);
+  transition: width 0.2s;
+}
+
+.nav-links a:hover { color: var(--orange); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  padding: 8px 20px;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--orange); color: var(--bg); }
+
+/* ── Sections ──────────────────────────────────── */
+section { position: relative; z-index: 1; }
+
+/* ── Hero ──────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 60px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 40px; height: 1px;
+  background: var(--orange);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 9vw, 130px);
+  line-height: 0.9;
+  color: #fff;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.hero-name span { color: var(--orange); }
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: var(--steel);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.hero-desc {
+  max-width: 480px;
+  color: var(--text-dim);
+  font-size: 15px;
+  margin-top: 28px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1s forwards;
+}
+
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: var(--bg);
+  padding: 14px 32px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.btn-primary:hover { background: #ff8c4a; transform: translateY(-2px); }
+
+.btn-secondary {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--steel);
+  color: var(--steel);
+  padding: 14px 32px;
+  text-decoration: none;
+  transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+/* Hero stats */
+.hero-stats {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  opacity: 0;
+  animation: fadeLeft 0.8s 1.2s forwards;
+}
+
+.stat {
+  text-align: right;
+  border-right: 2px solid var(--orange);
+  padding-right: 20px;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  color: #fff;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Blueprint corner decoration */
+.blueprint-corner {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  opacity: 0;
+  animation: fadeUp 1s 1.4s forwards;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 1.6s forwards;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+  animation: scrollPulse 2s infinite;
+}
+
+.scroll-text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+/* ── About ─────────────────────────────────────── */
+#about {
+  padding: 120px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--orange);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 30px; height: 1px;
+  background: var(--orange);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.about-text {
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.about-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.detail-item {
+  border-left: 2px solid var(--orange-dim);
+  padding-left: 14px;
+  border-left-color: var(--orange);
+}
+
+.detail-key {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.detail-val {
+  font-size: 14px;
+  color: var(--text);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* Engineering diagram */
+.eng-diagram {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gear-svg { animation: rotateSlow 12s linear infinite; }
+.gear-svg-rev { animation: rotateSlow 8s linear infinite reverse; }
+
+/* ── Skills ────────────────────────────────────── */
+#skills {
+  padding: 120px 60px;
+  border-top: 1px solid var(--line);
+  background: var(--bg2);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 60px;
+}
+
+.skill-card {
+  background: var(--bg3);
+  padding: 32px;
+  border: 1px solid var(--line);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--orange);
+  transition: height 0.3s;
+}
+
+.skill-card:hover::before { height: 100%; }
+.skill-card:hover { border-color: rgba(255,107,26,0.3); background: rgba(255,107,26,0.03); }
+
+.skill-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.skill-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: 0.05em;
+}
+
+.skill-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.skill-bar-wrap {
+  height: 2px;
+  background: rgba(139,168,190,0.1);
+  width: 100%;
+}
+
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--blue));
+  width: 0;
+  transition: width 1.5s ease;
+}
+
+.skill-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--orange);
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+}
+
+/* ── Projects ──────────────────────────────────── */
+#projects {
+  padding: 120px 60px;
+  border-top: 1px solid var(--line);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 60px;
+}
+
+.project-card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,107,26,0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.project-card:hover::after { opacity: 1; }
+.project-card:hover { border-color: rgba(255,107,26,0.4); transform: translateY(-4px); }
+
+.project-number {
+  font-family: var(--font-display);
+  font-size: 80px;
+  color: rgba(255,107,26,0.08);
+  position: absolute;
+  top: 16px; right: 24px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.project-card:hover .project-number { color: rgba(255,107,26,0.15); }
+
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--orange);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255,107,26,0.3);
+  display: inline-block;
+  padding: 3px 10px;
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  color: #fff;
+  letter-spacing: 0.03em;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+.project-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.tech-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--steel);
+  background: rgba(139,168,190,0.08);
+  padding: 4px 10px;
+  letter-spacing: 0.1em;
+}
+
+.project-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--orange);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s;
+}
+
+.project-link:hover { gap: 14px; }
+
+/* Featured project */
+.project-card.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+  border-color: rgba(255,107,26,0.2);
+}
+
+/* ── Experience ────────────────────────────────── */
+#experience {
+  padding: 120px 60px;
+  border-top: 1px solid var(--line);
+  background: var(--bg2);
+}
+
+.timeline {
+  margin-top: 60px;
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+}
+
+.timeline-item {
+  margin-bottom: 48px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.6s;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -44px; top: 6px;
+  width: 8px; height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--orange);
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: #fff;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.timeline-org {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--steel);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.timeline-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+/* ── Contact ───────────────────────────────────── */
+#contact {
+  padding: 120px 60px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-bg-text {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: clamp(80px, 15vw, 200px);
+  color: rgba(255,107,26,0.03);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.1em;
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(50px, 8vw, 110px);
+  color: #fff;
+  line-height: 0.9;
+  margin-bottom: 24px;
+}
+
+.contact-title span { color: var(--orange); }
+
+.contact-sub {
+  font-size: 15px;
+  color: var(--text-dim);
+  max-width: 440px;
+  margin: 0 auto 48px;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+  background: var(--orange-dim);
+}
+
+/* ── Footer ────────────────────────────────────── */
+footer {
+  padding: 24px 60px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.footer-coords {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255,107,26,0.4);
+  letter-spacing: 0.1em;
+}
+
+/* ── Animations ────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translate(30px, -50%); }
+  to   { opacity: 1; transform: translate(0, -50%); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ── Responsive ────────────────────────────────── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  #hero { padding: 100px 24px 60px; }
+  .hero-stats { display: none; }
+  #about { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+  .eng-diagram { height: 250px; }
+  #skills { padding: 80px 24px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  #projects { padding: 80px 24px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+  #experience { padding: 80px 24px; }
+  #contact { padding: 80px 24px; }
+  footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+  .about-detail { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+<div class="grid-bg"></div>
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TYC // MECH.ENG</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:tejaruthwik.chataboina@stud.th-deg.de" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div>
+    <div class="hero-tag">Mechanical Engineer · India → Germany</div>
+    <h1 class="hero-name">TEJA<span>RUTH</span><br>WIK</h1>
+    <div class="hero-title">Mechanical Engineering · TH Deggendorf · Bavaria</div>
+    <p class="hero-desc">
+      International engineering student passionate about additive manufacturing, 
+      digitalization, and building intelligent systems that bridge mechanical 
+      precision with modern AI.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">7.56</div>
+      <div class="stat-label">CGPA Score</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2.2</div>
+      <div class="stat-label">German Grade</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Projects Built</div>
+    </div>
+  </div>
+
+  <!-- Blueprint corner SVG -->
+  <div class="blueprint-corner">
+    <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="80" x2="0" y2="0" stroke="rgba(255,107,26,0.4)" stroke-width="1"/>
+      <line x1="0" y1="80" x2="120" y2="80" stroke="rgba(255,107,26,0.4)" stroke-width="1"/>
+      <line x1="20" y1="80" x2="20" y2="60" stroke="rgba(255,107,26,0.2)" stroke-width="1"/>
+      <line x1="0" y1="60" x2="20" y2="60" stroke="rgba(255,107,26,0.2)" stroke-width="1"/>
+      <text x="6" y="55" fill="rgba(255,107,26,0.4)" font-family="Share Tech Mono" font-size="8">REV.01</text>
+      <text x="30" y="75" fill="rgba(255,107,26,0.4)" font-family="Share Tech Mono" font-size="8">PORTFOLIO // 2026</text>
+    </svg>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-text">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">BUILT TO<br>ENGINEER</h2>
+    <p class="about-text">
+      I'm an international mechanical engineering student from India, currently studying 
+      at Technische Hochschule Deggendorf in Bavaria, Germany. I combine traditional 
+      engineering fundamentals with a drive to digitalize and automate.
+    </p>
+    <p class="about-text">
+      From designing mechanical components to building AI-powered tools — I believe 
+      the future of engineering lives at the intersection of hardware and intelligent 
+      software. I'm actively seeking working student positions where I can contribute 
+      to real-world aerospace and industrial challenges.
+    </p>
+    <div class="about-detail">
+      <div class="detail-item">
+        <div class="detail-key">University</div>
+        <div class="detail-val">TH Deggendorf</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-key">Location</div>
+        <div class="detail-val">Bavaria, Germany</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-key">CGPA</div>
+        <div class="detail-val">7.56 / 10 (≈ 2.2 DE)</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-key">Languages</div>
+        <div class="detail-val">English · German (B1)</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-key">Availability</div>
+        <div class="detail-val">18h/week · April 2026</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-key">Focus</div>
+        <div class="detail-val">Additive Mfg · AI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated engineering diagram -->
+  <div class="eng-diagram">
+    <svg width="380" height="380" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- Grid lines -->
+      <line x1="190" y1="0" x2="190" y2="380" stroke="rgba(139,168,190,0.1)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="0" y1="190" x2="380" y2="190" stroke="rgba(139,168,190,0.1)" stroke-width="1" stroke-dasharray="4 4"/>
+      <!-- Circles -->
+      <circle cx="190" cy="190" r="160" stroke="rgba(139,168,190,0.08)" fill="none" stroke-width="1"/>
+      <circle cx="190" cy="190" r="120" stroke="rgba(255,107,26,0.1)" fill="none" stroke-width="1"/>
+      <circle cx="190" cy="190" r="80" stroke="rgba(139,168,190,0.08)" fill="none" stroke-width="1"/>
+      <!-- Dimension lines -->
+      <line x1="30" y1="190" x2="170" y2="190" stroke="rgba(255,107,26,0.2)" stroke-width="0.5"/>
+      <line x1="210" y1="190" x2="350" y2="190" stroke="rgba(255,107,26,0.2)" stroke-width="0.5"/>
+      <text x="155" y="186" fill="rgba(255,107,26,0.5)" font-family="Share Tech Mono" font-size="9">R80</text>
+      <!-- Main gear -->
+      <g transform="translate(190,190)" class="gear-svg">
+        <circle r="55" fill="rgba(255,107,26,0.06)" stroke="rgba(255,107,26,0.4)" stroke-width="1.5"/>
+        <circle r="22" fill="var(--bg2)" stroke="rgba(255,107,26,0.3)" stroke-width="1"/>
+        <circle r="6" fill="var(--orange)" opacity="0.8"/>
+        <!-- Teeth -->
+        <g id="teeth">
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(30)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(60)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(90)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(120)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(150)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(180)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(210)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(240)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(270)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(300)"/>
+          <rect x="-7" y="-68" width="14" height="16" rx="2" fill="rgba(255,107,26,0.5)" stroke="rgba(255,107,26,0.6)" stroke-width="0.5" transform="rotate(330)"/>
+        </g>
+        <!-- Spokes -->
+        <line x1="0" y1="-22" x2="0" y2="-55" stroke="rgba(255,107,26,0.3)" stroke-width="1.5"/>
+        <line x1="0" y1="-22" x2="0" y2="-55" stroke="rgba(255,107,26,0.3)" stroke-width="1.5" transform="rotate(120)"/>
+        <line x1="0" y1="-22" x2="0" y2="-55" stroke="rgba(255,107,26,0.3)" stroke-width="1.5" transform="rotate(240)"/>
+      </g>
+      <!-- Small gear top-right -->
+      <g transform="translate(290,95)" class="gear-svg-rev">
+        <circle r="30" fill="rgba(26,159,255,0.05)" stroke="rgba(26,159,255,0.3)" stroke-width="1"/>
+        <circle r="12" fill="var(--bg2)" stroke="rgba(26,159,255,0.2)" stroke-width="1"/>
+        <circle r="4" fill="rgba(26,159,255,0.6)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(45)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(90)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(135)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(180)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(225)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(270)"/>
+        <rect x="-4" y="-37" width="8" height="9" rx="1" fill="rgba(26,159,255,0.4)" stroke="rgba(26,159,255,0.5)" stroke-width="0.5" transform="rotate(315)"/>
+      </g>
+      <!-- Annotation labels -->
+      <text x="5" y="30" fill="rgba(255,107,26,0.4)" font-family="Share Tech Mono" font-size="8">⌀ 110</text>
+      <text x="5" y="355" fill="rgba(139,168,190,0.3)" font-family="Share Tech Mono" font-size="8">TOLERANCE: ±0.05mm</text>
+      <text x="260" y="355" fill="rgba(139,168,190,0.3)" font-family="Share Tech Mono" font-size="8">SCALE 1:1</text>
+    </svg>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Arsenal</div>
+  <h2 class="section-title">SKILLS &<br>EXPERTISE</h2>
+
+  <div class="skills-grid">
+    <div class="skill-card" data-pct="80">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">CAD DESIGN</div>
+      <div class="skill-desc">3D modelling, technical drawings, and component design. CATIA experience from academic and self-study projects.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+      <div class="skill-pct">80%</div>
+    </div>
+    <div class="skill-card" data-pct="75">
+      <div class="skill-icon">🖨️</div>
+      <div class="skill-name">ADDITIVE MFG</div>
+      <div class="skill-desc">FDM and SLA 3D printing processes. Converting conventional parts to additive manufacturing for cost and weight reduction.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+      <div class="skill-pct">75%</div>
+    </div>
+    <div class="skill-card" data-pct="70">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">PYTHON / AI</div>
+      <div class="skill-desc">Built AI-powered applications using OpenAI Whisper, Claude API, WebSockets, and real-time audio processing pipelines.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+      <div class="skill-pct">70%</div>
+    </div>
+    <div class="skill-card" data-pct="65">
+      <div class="skill-icon">📐</div>
+      <div class="skill-name">FEA / SIMULATION</div>
+      <div class="skill-desc">Structural analysis and simulation fundamentals. Understanding of stress, strain, and fatigue in mechanical components.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+      <div class="skill-pct">65%</div>
+    </div>
+    <div class="skill-card" data-pct="72">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">WEB / EXTENSION DEV</div>
+      <div class="skill-desc">Chrome Extension development, JavaScript, HTML/CSS. Built full-stack tools with browser APIs and local server integration.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+      <div class="skill-pct">72%</div>
+    </div>
+    <div class="skill-card" data-pct="60">
+      <div class="skill-icon">🇩🇪</div>
+      <div class="skill-name">GERMAN LANGUAGE</div>
+      <div class="skill-desc">B1 level German, actively improving through immersive tools and daily practice. Built a German learning app to accelerate progress.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar"></div></div>
+      <div class="skill-pct">B1 Level</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">PROJECTS</h2>
+
+  <div class="projects-grid">
+
+    <!-- Featured -->
+    <div class="project-card featured">
+      <div class="project-number">01</div>
+      <div class="project-tag">AI · Chrome Extension · Featured</div>
+      <div class="project-title">LERNFLUENT</div>
+      <div class="project-desc">
+        A production-grade Chrome extension that automatically generates German subtitles 
+        for any video using OpenAI Whisper running locally on-device. Click any word to get 
+        instant AI-powered explanations via Claude API. Works on YouTube, Netflix, and any 
+        streaming site. Built with a Python WebSocket server, real-time audio capture via 
+        Stereo Mix, and a polished browser UI.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">OpenAI Whisper</span>
+        <span class="tech-tag">Claude API</span>
+        <span class="tech-tag">WebSockets</span>
+        <span class="tech-tag">Chrome Extension</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Real-time Audio</span>
+      </div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">02</div>
+      <div class="project-tag">Mechanical · CAD</div>
+      <div class="project-title">CAD COMPONENT DESIGN</div>
+      <div class="project-desc">
+        Academic mechanical design projects involving 3D component modelling, tolerance analysis, 
+        and technical drawing production. Applying GD&T principles and manufacturing constraints.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">CATIA</span>
+        <span class="tech-tag">SolidWorks</span>
+        <span class="tech-tag">GD&T</span>
+        <span class="tech-tag">Technical Drawing</span>
+      </div>
+      <a href="#contact" class="project-link">Request Details →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-number">03</div>
+      <div class="project-tag">Digitalization · IoT</div>
+      <div class="project-title">GSE CONNECTIVITY<br>RESEARCH</div>
+      <div class="project-desc">
+        Research into Ground Support Equipment digitalization for aerospace applications. 
+        Analysing which GSE tools benefit most from IoT connectivity and sensor integration — 
+        aligned with Airbus working student project scope.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">IoT</span>
+        <span class="tech-tag">Industry 4.0</span>
+        <span class="tech-tag">Aerospace</span>
+        <span class="tech-tag">Data Analysis</span>
+      </div>
+      <a href="#contact" class="project-link">Learn More →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE / EDUCATION -->
+<section id="experience">
+  <div class="section-label">Background</div>
+  <h2 class="section-title">EDUCATION &<br>EXPERIENCE</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2024 — Present</div>
+      <div class="timeline-title">MECHANICAL ENGINEERING</div>
+      <div class="timeline-org">Technische Hochschule Deggendorf · Bavaria, Germany</div>
+      <div class="timeline-desc">
+        International student pursuing mechanical engineering with focus on manufacturing, 
+        digitalization, and computational methods. CGPA: 7.56/10 (German equivalent: 2.2 — "Gut").
+        Actively participating in seminars on German work culture, labour law, and career development.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2026 · Applying</div>
+      <div class="timeline-title">WORKING STUDENT — GSE ENGINEERING</div>
+      <div class="timeline-org">Airbus Operations GmbH · Hamburg Finkenwerder</div>
+      <div class="timeline-desc">
+        Applying for working student position in Ground Support Equipment Engineering — 
+        Additive Manufacturing and Digitalisation. 18h/week, April 2026 start.
+        Focus: transforming conventional GSE tools to additive manufacturing and rolling out IoT connectivity.
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2020 — 2024</div>
+      <div class="timeline-title">BACHELOR OF ENGINEERING</div>
+      <div class="timeline-org">India</div>
+      <div class="timeline-desc">
+        Undergraduate mechanical engineering degree with strong foundation in thermodynamics, 
+        fluid mechanics, machine design, and manufacturing processes.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-bg-text">CONTACT</div>
+  <div class="section-label" style="justify-content:center">Get In Touch</div>
+  <h2 class="contact-title">LET'S <span>BUILD</span><br>TOGETHER</h2>
+  <p class="contact-sub">
+    Open to working student positions, internships, and engineering collaborations in Germany.
+  </p>
+  <div class="contact-links">
+    <a href="mailto:tejaruthwik.chataboina@stud.th-deg.de" class="contact-link">
+      ✉ Email Me
+    </a>
+    <a href="https://linkedin.com/in/tejaruthwik" class="contact-link" target="_blank">
+      in LinkedIn
+    </a>
+    <a href="https://github.com/tejaruthwik" class="contact-link" target="_blank">
+      ⌥ GitHub
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-text">© 2026 · Tejaruthwik Yadav Chataboina · All Rights Reserved</div>
+  <div class="footer-coords">48°8′N 12°57′E · DEGGENDORF, BAVARIA</div>
+</footer>
+
+<script>
+// ── Custom Cursor ──────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .skill-card, .project-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width = '50px'; ring.style.height = '50px';
+    ring.style.borderColor = 'rgba(255,107,26,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width = '32px'; ring.style.height = '32px';
+    ring.style.borderColor = 'rgba(255,107,26,0.5)';
+  });
+});
+
+// ── Particles ──────────────────────────────────────
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+const particles = Array.from({length: 60}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - 0.5) * 0.3,
+  vy: (Math.random() - 0.5) * 0.3,
+  size: Math.random() * 1.5 + 0.3,
+  opacity: Math.random() * 0.4 + 0.1,
+  color: Math.random() > 0.7 ? '#FF6B1A' : '#1A9FFF'
+}));
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = p.color + Math.floor(p.opacity * 255).toString(16).padStart(2,'0');
+    ctx.fill();
+  });
+  // Draw connection lines
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i+1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(139,168,190,${0.06 * (1 - dist/120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ── Scroll animations ──────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Animate skill bars
+      const bar = entry.target.querySelector('.skill-bar');
+      if (bar) {
+        const pct = entry.target.dataset.pct;
+        setTimeout(() => { bar.style.width = pct + '%'; }, 200);
+      }
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.timeline-item, .skill-card, .project-card').forEach(el => {
+  observer.observe(el);
+});
+
+// Skill cards need initial state
+document.querySelectorAll('.skill-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'all 0.6s';
+});
+
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        const bar = entry.target.querySelector('.skill-bar');
+        if (bar) bar.style.width = entry.target.dataset.pct + '%';
+      }, i * 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.skill-card').forEach(el => skillObserver.observe(el));
+</script>
+</body>
+</html>
