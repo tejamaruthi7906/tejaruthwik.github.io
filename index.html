@@ -1,696 +1,475 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tejaruthwik Yadav Chataboina — Aerospace & Mechanical Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
-:root {
-  --orange: #FF6B1A;
-  --orange-dim: rgba(255,107,26,0.12);
-  --blue: #1A9FFF;
-  --steel: #8BA8BE;
-  --bg: #080B0F;
-  --bg2: #0D1117;
-  --bg3: #111820;
-  --line: rgba(139,168,190,0.12);
-  --text: #C8D8E8;
-  --text-dim: rgba(200,216,232,0.45);
-  --green: #4cff88;
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-mono: 'Share Tech Mono', monospace;
-  --font-body: 'DM Sans', sans-serif;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; cursor: none; }
-
-.cursor { position: fixed; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
-.cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(255,107,26,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
-
-.grid-bg { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px), linear-gradient(rgba(139,168,190,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(139,168,190,0.04) 1px, transparent 1px); background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px; pointer-events: none; }
-#particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-
-/* NAV */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 60px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: rgba(8,11,15,0.92); backdrop-filter: blur(14px); }
-.nav-logo { font-family: var(--font-mono); font-size: 12px; color: var(--orange); letter-spacing: 0.1em; }
-.nav-links { display: flex; gap: 36px; list-style: none; }
-.nav-links a { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
-.nav-links a:hover { color: var(--orange); }
-
-section { position: relative; z-index: 1; }
-
-/* HERO */
-#hero { min-height: 100vh; display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 120px 60px 60px; gap: 60px; overflow: hidden; }
-.hero-left { max-width: 680px; }
-.hero-tag { font-family: var(--font-mono); font-size: 11px; color: var(--orange); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
-.hero-tag::before { content: ''; display: block; width: 40px; height: 1px; background: var(--orange); }
-.hero-name { font-family: var(--font-display); font-size: clamp(52px, 7.5vw, 110px); line-height: 0.9; color: #fff; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
-.hero-name span { color: var(--orange); }
-.hero-title { font-family: var(--font-mono); font-size: 13px; color: var(--steel); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 16px; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
-.hero-desc { max-width: 520px; color: var(--text-dim); font-size: 15px; margin-top: 24px; line-height: 1.85; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
-.award-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,210,0,0.07); border: 1px solid rgba(255,210,0,0.25); border-radius: 4px; padding: 6px 14px; margin-top: 20px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,210,0,0.8); letter-spacing: 0.1em; opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
-.hero-actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 1s forwards; }
-.btn-primary { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; background: var(--orange); color: var(--bg); padding: 13px 30px; text-decoration: none; font-weight: 600; transition: all 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
-.btn-primary:hover { background: #ff8c4a; transform: translateY(-2px); }
-.btn-secondary { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--steel); color: var(--steel); padding: 13px 30px; text-decoration: none; transition: all 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
-.btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
-.btn-linkedin { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid #0077b5; color: #0077b5; padding: 13px 30px; text-decoration: none; transition: all 0.2s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
-.btn-linkedin:hover { background: #0077b5; color: #fff; transform: translateY(-2px); }
-.hero-photo-wrap { position: relative; opacity: 0; animation: fadeLeft 0.8s 0.6s forwards; flex-shrink: 0; }
-.hero-photo { width: 280px; height: 340px; object-fit: cover; object-position: center top; display: block; filter: grayscale(20%) contrast(1.05); border: 1px solid rgba(255,107,26,0.3); }
-.hero-photo-frame { position: absolute; top: -10px; left: -10px; right: 10px; bottom: 10px; border: 1px solid rgba(255,107,26,0.15); pointer-events: none; }
-.hero-photo-label { position: absolute; bottom: -24px; left: 0; font-family: var(--font-mono); font-size: 9px; color: rgba(255,107,26,0.4); letter-spacing: 0.2em; text-transform: uppercase; }
-.hero-stats { display: flex; gap: 40px; margin-top: 36px; opacity: 0; animation: fadeUp 0.8s 1.1s forwards; }
-.stat { border-left: 2px solid var(--orange); padding-left: 14px; }
-.stat-num { font-family: var(--font-display); font-size: 36px; color: #fff; line-height: 1; }
-.stat-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 3px; }
-
-/* ABOUT */
-#about { padding: 100px 60px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start; background: var(--bg2); }
-.section-label { font-family: var(--font-mono); font-size: 10px; color: var(--orange); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
-.section-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--orange); }
-.section-title { font-family: var(--font-display); font-size: clamp(36px, 4.5vw, 64px); line-height: 0.95; color: #fff; margin-bottom: 24px; }
-.about-text { color: var(--text-dim); font-size: 14px; line-height: 1.9; margin-bottom: 14px; }
-.skills-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
-.skill-row { display: flex; flex-direction: column; gap: 5px; }
-.skill-top { display: flex; justify-content: space-between; align-items: center; }
-.skill-name-text { font-family: var(--font-mono); font-size: 11px; color: var(--text); letter-spacing: 0.1em; }
-.skill-pct-text { font-family: var(--font-mono); font-size: 10px; color: var(--orange); }
-.skill-track { height: 2px; background: rgba(139,168,190,0.1); width: 100%; }
-.skill-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--blue)); width: 0; transition: width 1.5s ease; }
-.skills-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-.stag { font-family: var(--font-mono); font-size: 10px; color: var(--steel); background: rgba(139,168,190,0.06); border: 1px solid rgba(139,168,190,0.12); padding: 4px 10px; letter-spacing: 0.08em; transition: all 0.2s; }
-.stag:hover { border-color: rgba(255,107,26,0.4); color: var(--orange); }
-
-/* EXPERIENCE */
-#experience { padding: 100px 60px; border-top: 1px solid var(--line); }
-.timeline { margin-top: 50px; position: relative; padding-left: 36px; }
-.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--orange), rgba(255,107,26,0.1)); }
-.titem { margin-bottom: 52px; position: relative; opacity: 0; transform: translateX(-16px); transition: all 0.6s; }
-.titem.vis { opacity: 1; transform: translateX(0); }
-.tdot { position: absolute; left: -40px; top: 8px; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; box-shadow: 0 0 10px var(--orange); }
-.tdate { font-family: var(--font-mono); font-size: 10px; color: var(--orange); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
-.ttitle { font-family: var(--font-display); font-size: 28px; color: #fff; letter-spacing: 0.02em; margin-bottom: 2px; line-height: 1.1; }
-.torg { font-family: var(--font-mono); font-size: 11px; color: var(--steel); letter-spacing: 0.1em; margin-bottom: 10px; }
-.tclient { font-family: var(--font-mono); font-size: 10px; color: rgba(255,210,0,0.6); letter-spacing: 0.1em; margin-bottom: 10px; }
-.tpoints { list-style: none; padding: 0; }
-.tpoints li { font-size: 13.5px; color: var(--text-dim); line-height: 1.75; padding: 4px 0 4px 16px; position: relative; }
-.tpoints li::before { content: '//'; position: absolute; left: 0; color: rgba(255,107,26,0.35); font-family: var(--font-mono); font-size: 10px; top: 5px; }
-.award-inline { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,210,0,0.07); border: 1px solid rgba(255,210,0,0.2); padding: 3px 10px; border-radius: 3px; font-family: var(--font-mono); font-size: 10px; color: rgba(255,210,0,0.7); letter-spacing: 0.08em; margin-top: 8px; }
-
-/* TRAINING SECTION */
-#training { padding: 100px 60px; border-top: 1px solid var(--line); background: var(--bg2); }
-.training-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 50px; }
-.training-card { background: var(--bg3); border: 1px solid var(--line); padding: 28px; position: relative; overflow: hidden; transition: all 0.3s; opacity: 0; transform: translateY(16px); }
-.training-card.vis { opacity: 1; transform: translateY(0); }
-.training-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--orange); transition: height 0.3s; }
-.training-card:hover::before { height: 100%; }
-.training-card:hover { border-color: rgba(255,107,26,0.3); }
-.tc-period { font-family: var(--font-mono); font-size: 10px; color: var(--orange); letter-spacing: 0.18em; margin-bottom: 10px; }
-.tc-title { font-family: var(--font-display); font-size: 20px; color: #fff; letter-spacing: 0.03em; margin-bottom: 6px; line-height: 1.2; }
-.tc-org { font-family: var(--font-mono); font-size: 11px; color: var(--steel); letter-spacing: 0.08em; margin-bottom: 12px; }
-.tc-desc { font-size: 13px; color: var(--text-dim); line-height: 1.75; }
-
-/* EDUCATION */
-#education { padding: 100px 60px; border-top: 1px solid var(--line); }
-.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 50px; }
-.edu-card { background: var(--bg3); border: 1px solid var(--line); padding: 32px; position: relative; overflow: hidden; opacity: 0; transform: translateY(20px); transition: all 0.6s; }
-.edu-card.vis { opacity: 1; transform: translateY(0); }
-.edu-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--orange); transition: height 0.3s; }
-.edu-card:hover::before { height: 100%; }
-.edu-period { font-family: var(--font-mono); font-size: 10px; color: var(--orange); letter-spacing: 0.2em; margin-bottom: 10px; }
-.edu-degree { font-family: var(--font-display); font-size: 22px; color: #fff; letter-spacing: 0.03em; margin-bottom: 4px; line-height: 1.2; }
-.edu-uni { font-family: var(--font-mono); font-size: 11px; color: var(--steel); letter-spacing: 0.1em; margin-bottom: 16px; }
-.edu-grades { display: flex; flex-direction: column; gap: 6px; }
-.grade-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(139,168,190,0.06); font-size: 12px; }
-.grade-subject { color: var(--text-dim); }
-.grade-val { font-family: var(--font-mono); font-size: 12px; }
-.grade-val.top { color: var(--green); }
-.grade-val.good { color: var(--orange); }
-.avg-row { margin-top: 12px; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,107,26,0.2); padding-top: 10px; }
-.avg-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
-.avg-val { font-family: var(--font-display); font-size: 24px; color: var(--orange); }
-
-/* PROJECTS */
-#projects { padding: 100px 60px; border-top: 1px solid var(--line); background: var(--bg2); }
-.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 50px; }
-.proj-card { background: var(--bg); border: 1px solid var(--line); padding: 36px; position: relative; overflow: hidden; transition: all 0.3s; opacity: 0; transform: translateY(20px); }
-.proj-card.vis { opacity: 1; transform: translateY(0); }
-.proj-card:hover { border-color: rgba(255,107,26,0.35); transform: translateY(-4px); }
-.proj-num { font-family: var(--font-display); font-size: 72px; color: rgba(255,107,26,0.07); position: absolute; top: 12px; right: 20px; line-height: 1; }
-.proj-tag { font-family: var(--font-mono); font-size: 10px; color: var(--orange); letter-spacing: 0.18em; text-transform: uppercase; border: 1px solid rgba(255,107,26,0.25); display: inline-block; padding: 3px 10px; margin-bottom: 14px; }
-.proj-title { font-family: var(--font-display); font-size: 26px; color: #fff; letter-spacing: 0.03em; margin-bottom: 12px; line-height: 1.1; }
-.proj-desc { font-size: 13.5px; color: var(--text-dim); line-height: 1.8; margin-bottom: 20px; }
-.proj-tech { display: flex; flex-wrap: wrap; gap: 6px; }
-.ptag { font-family: var(--font-mono); font-size: 10px; color: var(--steel); background: rgba(139,168,190,0.06); padding: 3px 9px; letter-spacing: 0.08em; }
-.proj-card.featured { grid-column: span 2; background: linear-gradient(135deg, var(--bg3), var(--bg)); border-color: rgba(255,107,26,0.18); }
-.proj-card.pilsen { grid-column: span 2; background: var(--bg3); border-color: rgba(255,107,26,0.15); }
-
-/* PHOTO GALLERY */
-.gallery-label { font-family: var(--font-mono); font-size: 10px; color: var(--orange); letter-spacing: 0.3em; text-transform: uppercase; margin: 28px 0 16px; display: flex; align-items: center; gap: 10px; }
-.gallery-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); }
-.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
-.photo-item { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; border: 1px solid rgba(139,168,190,0.08); }
-.photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s, filter 0.4s; filter: grayscale(20%); display: block; }
-.photo-item:hover img { transform: scale(1.06); filter: grayscale(0%); }
-.photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(8,11,15,0.92)); padding: 24px 10px 8px; font-size: 10px; color: rgba(200,216,232,0.8); line-height: 1.4; opacity: 0; transition: opacity 0.3s; font-family: var(--font-body); }
-.photo-item:hover .photo-caption { opacity: 1; }
-.photo-overlay { position: absolute; inset: 0; background: rgba(255,107,26,0.08); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; }
-.photo-overlay svg { width: 28px; height: 28px; opacity: 0.8; }
-.photo-item:hover .photo-overlay { opacity: 1; }
-
-/* LIGHTBOX */
-#lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: none; align-items: center; justify-content: center; flex-direction: column; }
-#lightbox.open { display: flex; animation: fadeIn 0.2s; }
-#lightbox img { max-width: 90vw; max-height: 80vh; object-fit: contain; border: 1px solid rgba(255,107,26,0.2); }
-#lightbox-caption { font-size: 13px; color: var(--text-dim); margin-top: 14px; max-width: 600px; text-align: center; font-family: var(--font-body); line-height: 1.6; }
-#lightbox-close { position: absolute; top: 20px; right: 28px; font-size: 28px; color: var(--text-dim); cursor: pointer; font-family: var(--font-mono); transition: color 0.2s; background: none; border: none; }
-#lightbox-close:hover { color: var(--orange); }
-#lightbox-prev, #lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); font-size: 32px; color: var(--text-dim); cursor: pointer; font-family: var(--font-mono); transition: color 0.2s; background: none; border: none; padding: 10px; }
-#lightbox-prev { left: 20px; }
-#lightbox-next { right: 20px; }
-#lightbox-prev:hover, #lightbox-next:hover { color: var(--orange); }
-#lightbox-counter { position: absolute; top: 24px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: rgba(255,107,26,0.6); letter-spacing: 0.2em; }
-
-/* CONTACT */
-#contact { padding: 100px 60px; border-top: 1px solid var(--line); text-align: center; position: relative; overflow: hidden; }
-.contact-bg-text { position: absolute; font-family: var(--font-display); font-size: clamp(80px, 15vw, 180px); color: rgba(255,107,26,0.025); top: 50%; left: 50%; transform: translate(-50%,-50%); white-space: nowrap; pointer-events: none; }
-.contact-title { font-family: var(--font-display); font-size: clamp(44px, 7vw, 96px); color: #fff; line-height: 0.9; margin-bottom: 20px; }
-.contact-title span { color: var(--orange); }
-.contact-sub { font-size: 14px; color: var(--text-dim); max-width: 400px; margin: 0 auto 40px; line-height: 1.8; }
-.contact-cards { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
-.contact-card { background: var(--bg2); border: 1px solid var(--line); padding: 24px 32px; text-decoration: none; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 160px; }
-.contact-card:hover { border-color: rgba(255,107,26,0.4); transform: translateY(-4px); background: var(--bg3); }
-.contact-card-icon { font-size: 22px; }
-.contact-card-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; }
-.contact-card-val { font-size: 12px; color: var(--text); font-weight: 500; }
-
-footer { padding: 22px 60px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
-.footer-text { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; }
-.footer-coords { font-family: var(--font-mono); font-size: 11px; color: rgba(255,107,26,0.35); letter-spacing: 0.08em; }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeLeft { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-@media (max-width: 900px) {
-  nav { padding: 14px 20px; }
-  .nav-links { display: none; }
-  #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
-  .hero-photo-wrap { display: none; }
-  #about { grid-template-columns: 1fr; padding: 70px 24px; gap: 40px; }
-  #experience, #training, #education, #projects, #contact { padding: 70px 24px; }
-  .edu-grid, .proj-grid { grid-template-columns: 1fr; }
-  .proj-card.featured, .proj-card.pilsen { grid-column: span 1; }
-  .training-grid { grid-template-columns: 1fr; }
-  .photo-grid { grid-template-columns: repeat(2, 1fr); }
-  footer { padding: 16px 24px; flex-direction: column; gap: 6px; text-align: center; }
-  .hero-stats { gap: 24px; }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tejaruthwik Chataboina — Mechanical &amp; Aerospace Engineer</title>
+<meta name="description" content="Portfolio of Tejaruthwik Chataboina — Mechanical &amp; Aerospace Engineer specialising in CAD, FEA and additive manufacturing.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
-<div class="grid-bg"></div>
-<canvas id="particles"></canvas>
-
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <button id="lightbox-close">✕</button>
-  <div id="lightbox-counter"></div>
-  <button id="lightbox-prev">&#8592;</button>
-  <img id="lightbox-img" src="" alt="">
-  <div id="lightbox-caption"></div>
-  <button id="lightbox-next">&#8594;</button>
-</div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">TYC // AEROSPACE & MECH ENG</div>
-  <ul class="nav-links">
-    <li><a href="#about">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#training">Training</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left">
-    <div class="hero-tag">Aerospace & Mechanical Engineer · India → Germany</div>
-    <h1 class="hero-name">TEJA<span>RUTH</span><br>WIK</h1>
-    <div class="hero-title">M.Eng. Mechatronic Systems · TH Deggendorf · Bavaria</div>
-    <p class="hero-desc">
-      Aerospace & Mechanical Engineer with 2.5 years at Quest Global / IHI Corporation
-      on GE engine programs (GEnx-1B, GEnx-2B, GE9x). Expert in Siemens NX, ANSYS FEA,
-      and hands-on AIT of precision aerospace hardware. Now pursuing Masters in Germany.
-    </p>
-    <div class="award-badge">🏆 "On The Fly" Award — GE9x Programme, IHI Corporation</div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num">2.5</div><div class="stat-label">Years Industry</div></div>
-      <div class="stat"><div class="stat-num">4</div><div class="stat-label">GE Programs</div></div>
-      <div class="stat"><div class="stat-num">1.0</div><div class="stat-label">Top Grades</div></div>
-    </div>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Get In Touch</a>
-      <a href="https://linkedin.com/in/chataboina-tejaruthwik-yadav-6523b8220" target="_blank" class="btn-linkedin">in LinkedIn</a>
-      <a href="#projects" class="btn-secondary">View Projects</a>
-    </div>
-  </div>
-  <div class="hero-photo-wrap">
-    <img src="Tejaruthwikphoto.jpeg" alt="Tejaruthwik Yadav Chataboina" class="hero-photo">
-    <div class="hero-photo-frame"></div>
-    <div class="hero-photo-label">Tejaruthwik Yadav Chataboina</div>
-  </div>
-</section>
-
-<!-- ABOUT / SKILLS -->
-<section id="about">
-  <div>
-    <div class="section-label">Who I Am</div>
-    <h2 class="section-title">BUILT FOR<br>AEROSPACE</h2>
-    <p class="about-text">
-      I am a Mechanical & Aerospace Engineer from India with hands-on professional
-      experience on GE aircraft engine programmes. I worked at Quest Global
-      Engineering Services, delivering CAD design and FEA for IHI Corporation
-      across GEnx-1B, GEnx-2B, Passport-20, and GE9x platforms.
-    </p>
-    <p class="about-text">
-      I am now pursuing an M.Eng. in Mechatronic and Cyber-Physical Systems at
-      TH Deggendorf, Germany, achieving top grades (1.0) in my first semester.
-      I am actively seeking working student opportunities in aerospace,
-      manufacturing, and digitalization.
-    </p>
-    <div class="skills-tags">
-      <span class="stag">Siemens NX</span>
-      <span class="stag">ANSYS APDL</span>
-      <span class="stag">HyperMesh</span>
-      <span class="stag">Fusion 360</span>
-      <span class="stag">SolidWorks</span>
-      <span class="stag">FEA / FEM</span>
-      <span class="stag">LPBF Metal AM</span>
-      <span class="stag">FDM 3D Print</span>
-      <span class="stag">MATLAB</span>
-      <span class="stag">Simulink</span>
-      <span class="stag">ROS/Gazebo</span>
-      <span class="stag">Python / AI</span>
-      <span class="stag">GD&amp;T</span>
-      <span class="stag">AIT</span>
-      <span class="stag">MRB</span>
-    </div>
-  </div>
-  <div>
-    <div class="section-label">Technical Skills</div>
-    <div class="skills-list">
-      <div class="skill-row" data-pct="90"><div class="skill-top"><span class="skill-name-text">SIEMENS NX (CAD)</span><span class="skill-pct-text">90%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-      <div class="skill-row" data-pct="85"><div class="skill-top"><span class="skill-name-text">ANSYS APDL (FEA)</span><span class="skill-pct-text">85%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-      <div class="skill-row" data-pct="80"><div class="skill-top"><span class="skill-name-text">FUSION 360 / SOLIDWORKS</span><span class="skill-pct-text">80%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-      <div class="skill-row" data-pct="78"><div class="skill-top"><span class="skill-name-text">ADDITIVE MANUFACTURING</span><span class="skill-pct-text">78%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-      <div class="skill-row" data-pct="72"><div class="skill-top"><span class="skill-name-text">MATLAB / SIMULINK / ROS</span><span class="skill-pct-text">72%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-      <div class="skill-row" data-pct="68"><div class="skill-top"><span class="skill-name-text">PYTHON / AI DEVELOPMENT</span><span class="skill-pct-text">68%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-      <div class="skill-row" data-pct="40"><div class="skill-top"><span class="skill-name-text">GERMAN LANGUAGE</span><span class="skill-pct-text">A2 (B1 in progress)</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-label">Work History</div>
-  <h2 class="section-title">INDUSTRY<br>EXPERIENCE</h2>
-  <div class="timeline">
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Aug 2022 – Feb 2025 · 2.5 Years</div>
-      <div class="ttitle">MECHANICAL DESIGN & INTEGRATION ENGINEER</div>
-      <div class="torg">Quest Global Engineering Services</div>
-      <div class="tclient">⚡ Client: IHI Corporation | Belgaum, India</div>
-      <div class="tclient" style="color:rgba(139,168,190,0.6)">Programs: GEnx-1B · GEnx-2B · Passport-20 · GE9x</div>
-      <ul class="tpoints">
-        <li>Created and updated 3D CAD models, part drawings, and assembly documentation in Siemens NX for propulsion system hardware — enclosure components, structural elements, mounting interfaces, and service features.</li>
-        <li>Conducted FEA using ANSYS APDL and HyperMesh for structural and thermomechanical assessment of LPT and HPC components — defining load cases, boundary conditions, contact interfaces, and documenting results.</li>
-        <li>Participated hands-on in AIT (Assembly, Integration and Test) activities — prototype assembly, test article preparation, functional validation, and commissioning of precision aerospace hardware.</li>
-        <li>Supported materials evaluation and non-conformance analysis through MRB — assessing metals and aerospace alloys against design specifications, evaluating failure modes.</li>
-        <li>Collaborated with cross-functional teams including HV systems, thermal, quality, and manufacturing — coordinating with Japanese engineering teams at IHI across multiple concurrent programmes.</li>
+<header class="site">
+  <div class="nav-inner">
+    <a class="brand" href="#top">Tejaruthwik Chataboina</a>
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#training">Training</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="award-inline">🏆 "On the Fly" Award — Design & Integration Excellence, GE9x Programme</div>
-    </div>
+    </nav>
   </div>
-</section>
+</header>
 
-<!-- INDUSTRIAL TRAINING -->
-<section id="training">
-  <div class="section-label">Industrial Training & Short Programmes</div>
-  <h2 class="section-title">TRAINING &<br>CERTIFICATIONS</h2>
-  <div class="training-grid">
-
-    <div class="training-card">
-      <div class="tc-period">2026 · Pilsen, Czech Republic</div>
-      <div class="tc-title">ADVANCED MANUFACTURING TECHNOLOGIES</div>
-      <div class="tc-org">University of West Bohemia — Summer School</div>
-      <div class="tc-desc">Hands-on LPBF metal and FDM machine operation. Produced 3 physical parts end-to-end from CAD to finished component. Covered topology optimisation, metals vs AM process selection, and industrial visit to TGS.</div>
-    </div>
-
-    <div class="training-card" style="grid-column: span 2;">
-      <div class="tc-period">Mar 2021 · Kazipet, India</div>
-      <div class="tc-title">ENGINEERING INDUSTRIAL TRAINING</div>
-      <div class="tc-org">South Central Railway — Diesel Loco Shed, Kazipet</div>
-      <div class="tc-desc">
-        Hands-on exposure to the design, maintenance, and overhaul of 16-cylinder, 100,000 CC diesel engines
-        and electric locomotives. Acquired knowledge of air brake systems including compressors, reservoirs,
-        brake cylinders, and control valves. Studied thermal systems, large mechanical assemblies, and
-        engineering documentation at a major Indian Railways maintenance depot. Prepared a full industrial
-        training report upon completion.
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Mechanical &amp; Aerospace Engineering</p>
+        <h1>Tejaruthwik Chataboina</h1>
+        <p class="role">CAD &amp; FEA Engineer · Additive Manufacturing · M.Eng. Mechatronic &amp; Cyber-Physical Systems</p>
+        <p class="lede">2.5 years designing and validating precision aerospace hardware for GE aircraft engine
+          programmes, now in the thesis phase of a Master's in Mechatronic and Cyber-Physical Systems. Working at
+          the intersection of 3D CAD, structural/thermomechanical FEA, topology optimisation and additive
+          manufacturing.</p>
+        <div class="hero-meta">
+          <span>📍 Cham, Germany</span>
+          <span>🎓 M.Eng. Mechatronic &amp; Cyber-Physical Systems, THD</span>
+          <span>🛠 Siemens NX · ANSYS APDL · HyperMesh</span>
+        </div>
+        <div class="hero-cta">
+          <a class="btn primary" href="mailto:tejaruthwikyadavchataboina@gmail.com">Email me</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/tejaruthwik-yadav" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn ghost" href="Tejaruthwik_Chataboina_Portfolio.pdf" target="_blank" rel="noopener">Download PDF</a>
+        </div>
       </div>
-
-      <div class="gallery-label" style="margin-top:24px;">Photo Documentation — South Central Railway, Kazipet</div>
-      <div class="photo-grid">
-
-        <div class="photo-item" data-index="100" data-caption="South Central Railway Diesel Loco Shed — Locomotive 70803 (WDG4D) undergoing maintenance with bogie components in foreground">
-          <img src="IMG_20210308_100637.jpg" alt="Loco Shed" loading="lazy">
-          <div class="photo-caption">Locomotive 70803 (WDG4D) — bogie components during overhaul</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="101" data-caption="Inside the cab of Locomotive 13238 — inspecting the driver's control panel, instrumentation, and brake systems during training">
-          <img src="IMG-20210309-WA0011.jpg" alt="Locomotive Cab" loading="lazy">
-          <div class="photo-caption">Inside Locomotive 13238 cab — control panel and brake system inspection</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="102" data-caption="16-cylinder diesel engine block disassembled for overhaul — exposed cylinder liners, crankshaft housing, and turbocharger assembly">
-          <img src="IMG_20210308_101351_2.jpg" alt="Engine Block" loading="lazy">
-          <div class="photo-caption">16-cylinder diesel engine block — full disassembly for overhaul inspection</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="103" data-caption="South Central Railway, Kazipet Diesel Loco Shed — one of India's largest locomotive maintenance facilities">
-          <img src="IMG_20210325_085017.jpg" alt="Indian Railways" loading="lazy">
-          <div class="photo-caption">South Central Railway — Kazipet Diesel Loco Shed</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="104" data-caption="Gear train and flywheel assembly of a WDM-series locomotive engine — studying power transmission components during maintenance training">
-          <img src="IMG-20210308-WA0003.jpg" alt="Gear Assembly" loading="lazy">
-          <div class="photo-caption">WDM locomotive gear train & flywheel assembly — power transmission study</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="105" data-caption="Engineering trainees at Kazipet Diesel Loco Shed alongside Locomotive 16604R — hands-on industrial training, March 2021">
-          <img src="IMG-20210313-WA0001.jpg" alt="Training Group" loading="lazy">
-          <div class="photo-caption">Engineering trainees at Kazipet Loco Shed — Locomotive 16604R, March 2021</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="assets/headshot.jpg" alt="Portrait of Tejaruthwik Chataboina">
       </div>
     </div>
+  </section>
 
-    <div class="training-card">
-      <div class="tc-period">Sep 2023 · QuEST Global</div>
-      <div class="tc-title">FATIGUE OF METALS</div>
-      <div class="tc-org">QuEST Global — Certification</div>
-      <div class="tc-desc">Introduction to fatigue of metals certification covering S-N curves, fatigue life prediction, crack propagation mechanics, and aerospace alloy behaviour under cyclic loading conditions.</div>
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">About</p>
+        <h2>Background</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p>I'm a mechanical and aerospace engineer currently completing a Master's in Mechatronic and
+            Cyber-Physical Systems at Technische Hochschule Deggendorf, Campus Cham — now in the thesis phase.
+            Before moving to Germany, I spent 2.5 years at Quest Global Engineering Services as a client-side
+            design and integration engineer for IHI Corporation, supporting GE aircraft engine programmes
+            (GEnx-1B, GEnx-2B, Passport-20, GE9x) with 3D CAD, structural and thermomechanical FEA, and hands-on
+            assembly, integration and test of precision aerospace hardware.</p>
+          <p>Since starting my Master's, I've worked on two team case studies that carry that same CAD-and-FEA
+            mindset into new domains: a topology-optimised, additively manufactured robotic gripper, and the
+            mechanical design and simulation of a vision-guided autonomous ground vehicle. Both are detailed
+            below, together with my specific role on each.</p>
+        </div>
+        <ul class="fact-list">
+          <li><strong>Location</strong>Cham, Bavaria, Germany</li>
+          <li><strong>Current focus</strong>M.Eng. thesis phase, THD Campus Cham</li>
+          <li><strong>Professional background</strong>2.5 years, GE engine programmes via Quest Global / IHI</li>
+          <li><strong>Core tools</strong>Siemens NX, ANSYS APDL, HyperMesh, SolidWorks</li>
+          <li><strong>Languages</strong>English (fluent), German (A2, B1 in preparation), Telugu (native)</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <div class="training-card">
-      <div class="tc-period">Mar 2024 · QuEST Global</div>
-      <div class="tc-title">BASIC LIFE SUPPORT & ENERGY CONSERVATION</div>
-      <div class="tc-org">QuEST Global — Certification</div>
-      <div class="tc-desc">Certified in Basic Life Support procedures and workplace energy conservation standards as part of professional development within aerospace engineering operations.</div>
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Professional Experience</p>
+        <h2>Industry work</h2>
+      </div>
+      <article class="exp-card">
+        <div class="exp-head">
+          <div>
+            <h3>Mechanical Design &amp; Integration Engineer</h3>
+            <p class="org">Quest Global Engineering Services · client-side at IHI Corporation</p>
+          </div>
+          <p class="when">Aug 2022 – Feb 2025 · Bangalore, India</p>
+        </div>
+        <ul>
+          <li>Created and maintained 3D CAD models, part drawings and assembly documentation in Siemens NX for
+            propulsion hardware on GE aircraft engine programmes — GEnx-1B, GEnx-2B, Passport-20 and GE9x.</li>
+          <li>Carried out structural and thermomechanical FEA in ANSYS APDL and HyperMesh on engine components —
+            defining load cases, boundary conditions and contact interfaces, and documenting results to support
+            engineering decisions.</li>
+          <li>Took part hands-on in Assembly, Integration and Test (AIT) of precision aerospace hardware:
+            prototype assembly, test-article preparation and functional validation.</li>
+          <li>Supported non-conformance analysis through the Material Review Board (MRB), assessing aerospace
+            alloys against design specifications and writing engineering dispositions.</li>
+          <li>Coordinated with cross-functional teams (thermal, quality, manufacturing) and with IHI's engineering
+            teams in Japan across several concurrent programmes.</li>
+          <li>Received the <strong>"On the Fly" Award</strong> twice (March 2024) for design and integration
+            quality.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Siemens NX</span>
+          <span class="tag">ANSYS APDL</span>
+          <span class="tag">HyperMesh</span>
+          <span class="tag">AIT</span>
+          <span class="tag">MRB / Non-conformance</span>
+        </div>
+        <p class="confidentiality-note">Programme and process details are described at a general level only, in
+          line with customer confidentiality — no drawings, part numbers or customer data are shown.</p>
+      </article>
     </div>
+  </section>
 
-    <div class="training-card">
-      <div class="tc-period">2025–2026 · THD Career Programme</div>
-      <div class="tc-title">CAREER START INTO GERMAN TECHNOLOGY COMPANIES</div>
-      <div class="tc-org">Technische Hochschule Deggendorf</div>
-      <div class="tc-desc">Structured programme covering job applications in Germany, intercultural business communication, German labour law, and interview preparation for international engineering students.</div>
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Case Studies</p>
+        <h2>Academic Projects</h2>
+        <p class="section-intro">Two team case studies from my Master's programme at THD, chosen because they
+          best show CAD, FEA and additive-manufacturing skills relevant to design and simulation roles. Team size
+          and each member's role are stated explicitly.</p>
+      </div>
+
+      <!-- PROJECT 1: GRIPPER -->
+      <article class="project">
+        <div class="project-top">
+          <h3>Topology-Optimised Robotic Gripper</h3>
+          <span class="project-team">Team case study · 5 students</span>
+        </div>
+        <p class="project-summary">Design, structural validation and additive manufacturing of a lightweight,
+          servo-actuated 4-finger gripper for 5&nbsp;kg cubic payloads.</p>
+
+        <div class="project-body">
+          <div class="project-text">
+            <dl>
+              <dt>Problem / Goal</dt>
+              <dd>Industries handling small, dense, cube-shaped parts need a lightweight, low-tooling-cost gripper
+                that can be adapted to different cube sizes. The brief was to design, optimise and additively
+                manufacture a claw-type gripper that safely and repeatably handles cubic objects up to 5&nbsp;kg.</dd>
+
+              <dt>My role</dt>
+              <dd>Design Engineer on a 5-person team: created the 3D CAD design of the gripper and ran the
+                topology optimisation on the claw, center screw and claw-holder; updated design drawings based on
+                functional-test feedback.</dd>
+
+              <dt>Tools &amp; methods</dt>
+              <dd>
+                <div class="tool-chips">
+                  <span class="tag">SolidWorks CAD</span>
+                  <span class="tag">SolidWorks Simulation (static FEA)</span>
+                  <span class="tag">SIMP topology optimisation</span>
+                  <span class="tag">FDM (TPU-95A / PLA)</span>
+                  <span class="tag">Bambu Lab H2S</span>
+                  <span class="tag">Cost / break-even modelling</span>
+                </div>
+              </dd>
+
+              <dt>Approach</dt>
+              <dd>Designed a servo/lead-screw-driven 4-finger claw mechanism, where axial motion of a central
+                claw-holder compresses a spring body that closes the flexible claws around the object. Started
+                from a solid, conservatively-sized baseline claw, applied the two governing load cases (normal
+                gripping force and vertical shear from the payload weight), then ran SIMP-based topology
+                optimisation on the claw, center screw and claw-holder to remove low-stress material while
+                keeping the functional interfaces untouched. The optimised geometry was re-checked with static
+                FEA, cleaned up for FDM manufacturability, and printed in TPU-95A (flexible claws/spring) and PLA
+                (rigid housing) — TPU-95A was chosen over softer TPU variants for its higher stiffness, easier
+                printability, and roughly 67% lower material cost than TPU-70A.</dd>
+            </dl>
+
+            <div class="results-box">
+              <strong class="label">Key results</strong>
+              <ul>
+                <li>33% mass reduction versus the solid baseline design, with stresses kept within safe limits</li>
+                <li>Handles cubic objects up to 5 kg with stable, slip-free gripping and elastic recovery after
+                  release, confirmed in physical testing of the printed gripper</li>
+                <li>Estimated manufacturing cost of ≈€180 per unit on a 4-printer FDM cell, with a break-even
+                  point of ≈160 units</li>
+              </ul>
+            </div>
+
+            <p class="learned"><strong>What I learned —</strong> translating a topology-optimisation output into a
+              part that is actually printable and assemblable meant re-adding manufacturing constraints (minimum
+              wall thickness, support access, functional interfaces) by hand rather than trusting the raw
+              optimiser geometry. Running the CAD and optimisation work inside a 5-person team also meant keeping
+              drawings traceable as the design changed in response to test feedback.</p>
+          </div>
+
+          <div class="project-media">
+            <figure>
+              <img src="assets/gripper-assembly.jpg" alt="CAD render of the dimensioned four-finger gripper assembly, 282.8 mm tall, showing the servo motor, lead screw, spring body and open claws.">
+              <figcaption>Gripper assembly — CAD model showing the servo/lead-screw drive, spring body and
+                four-finger claw.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/gripper-topology.png" alt="Topology optimisation before-and-after comparison for the center screw, gripper finger and claw holder, each shown as a solid baseline part next to its optimised, material-reduced version with a stress-based material-mass colour map.">
+              <figcaption>Topology optimisation of the center screw, finger and claw-holder — solid baseline (left)
+                vs. optimised geometry (right).</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/gripper-fea-stress.jpg" alt="Von Mises stress plot of the optimised gripper fingers under load, colour-mapped from blue (low stress) to red (higher stress) at the finger roots and tips.">
+              <figcaption>Static FEA validation — von Mises stress on the optimised claws under the design load
+                case.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT 2: AGV -->
+      <article class="project">
+        <div class="project-top">
+          <h3>Vision-Guided AGV — Chassis Design &amp; Simulation</h3>
+          <span class="project-team">Team case study · 4 students · Grade 1.0</span>
+        </div>
+        <p class="project-summary">Mechanical platform and URDF model for a differential-drive AGV, validated in
+          a closed-loop ROS/Gazebo simulation with LQR control and OpenCV-based lane detection.</p>
+
+        <div class="project-body">
+          <div class="project-text">
+            <dl>
+              <dt>Problem / Goal</dt>
+              <dd>Design, model and simulate a control and sensing system for an Automated Guided Vehicle (AGV)
+                that follows a marked path autonomously — covering the mechanical platform, the vehicle dynamics
+                and controller, and camera-based lane detection, integrated in one Gazebo simulation.</dd>
+
+              <dt>My role</dt>
+              <dd>Mechanical CAD design and URDF conversion for the AGV chassis; authored the report's abstract,
+                conclusion and results sections. Teammates derived the state-space dynamics, designed and compared
+                the controllers, and built the OpenCV/ROS lane-detection pipeline.</dd>
+
+              <dt>Tools &amp; methods</dt>
+              <dd>
+                <div class="tool-chips">
+                  <span class="tag">Fusion 360 (CAD)</span>
+                  <span class="tag">SolidWorks → Simscape Multibody</span>
+                  <span class="tag">URDF</span>
+                  <span class="tag">ROS Noetic</span>
+                  <span class="tag">Gazebo 11</span>
+                  <span class="tag">MATLAB / Simulink</span>
+                  <span class="tag">OpenCV</span>
+                </div>
+              </dd>
+
+              <dt>Approach</dt>
+              <dd>Designed a differential-drive chassis — two powered front wheels, a pair of free-turning rear
+                castors, and an aluminium cargo tray on top — modelled with defined joints and linkages between
+                wheels and base link. Converted the CAD assembly into a URDF so the same geometry could drive both
+                a Simscape Multibody dynamic validation and the full Gazebo simulation. That shared chassis model
+                is what let the team's separately-developed LQR controller and OpenCV lane-detection pipeline be
+                tested together as one closed-loop system.</dd>
+            </dl>
+
+            <div class="results-box">
+              <strong class="label">Key results</strong>
+              <ul>
+                <li>Case study graded 1.0 (top grade) at THD</li>
+                <li>Open-loop system confirmed unstable (eigenvalues [0, 0.8, 0]) and cross-coupled (RGA = [[0.5,
+                  0.5], [0.5, 0.5]]), establishing the need for a MIMO controller</li>
+                <li>Of four controllers compared (Pole Placement, LQR, Mixsyn, Loopsyn), LQR gave the lowest
+                  overshoot — 0.89 rad on heading — and the closest setpoint tracking</li>
+                <li>Simscape validation: at a commanded 0.1 m/s, the AGV reached a 90° heading change in
+                  ≈16.6 s</li>
+                <li>Full system in Gazebo: HSV/OpenCV lane detection plus the LQR controller aligned the robot to
+                  the path centre in ≈15 s</li>
+              </ul>
+            </div>
+
+            <p class="learned"><strong>What I learned —</strong> a URDF is only as useful as the CAD decisions
+              behind it — joint placement and link naming in the original assembly directly determined how clean
+              the Simscape and Gazebo integration turned out to be. Working across mechanical, controls and
+              computer-vision teammates also meant agreeing on a shared coordinate convention early, instead of
+              reconciling it after each piece was already built.</p>
+          </div>
+
+          <div class="project-media">
+            <figure>
+              <img src="assets/agv-chassis.png" alt="Isometric CAD render of the AGV chassis: a welded-look aluminium frame on two large rear drive wheels and a front castor wheel, with a flat tray on top for cargo.">
+              <figcaption>AGV chassis — CAD model later converted to URDF for Gazebo/Simscape integration.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/agv-simulation.png" alt="Screen capture of the closed-loop Gazebo simulation: a debug view on the left showing the camera-detected red lane and offset, and a 3D Gazebo view on the right showing the AGV following a circular red track.">
+              <figcaption>Closed-loop simulation — OpenCV lane detection (left) driving the AGV along a circular
+                path in Gazebo (right).</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
     </div>
+  </section>
 
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Skills</p>
+        <h2>Technical Toolkit</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>CAD &amp; Design</h3>
+          <ul>
+            <li>Siemens NX (2.5 yrs, professional)</li>
+            <li>SolidWorks</li>
+            <li>Fusion 360</li>
+            <li>Engineering drawings, BOM, GD&amp;T</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>FEA &amp; Simulation</h3>
+          <ul>
+            <li>ANSYS APDL (professional)</li>
+            <li>HyperMesh</li>
+            <li>SolidWorks Simulation</li>
+            <li>Topology optimisation (SIMP)</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>Additive Manufacturing</h3>
+          <ul>
+            <li>FDM process &amp; material selection (TPU, PLA)</li>
+            <li>Design for Additive Manufacturing (DfAM)</li>
+            <li>Manufacturing cost / break-even modelling</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>Robotics &amp; Controls</h3>
+          <ul>
+            <li>MATLAB / Simulink, Simscape Multibody</li>
+            <li>ROS Noetic, Gazebo, URDF</li>
+            <li>OpenCV</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>Quality &amp; Integration</h3>
+          <ul>
+            <li>Assembly, Integration &amp; Test (AIT)</li>
+            <li>MRB / non-conformance analysis</li>
+            <li>Cross-functional &amp; cross-site coordination</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <ul>
+            <li>English — fluent</li>
+            <li>German — A2, B1 in preparation</li>
+            <li>Telugu — native</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="two-col">
+        <div>
+          <div class="section-head">
+            <p class="eyebrow">Education</p>
+            <h2>Academic Background</h2>
+          </div>
+          <div class="edu-item">
+            <h3>M.Eng. Mechatronic and Cyber-Physical Systems</h3>
+            <p class="org">Technische Hochschule Deggendorf (THD), Campus Cham</p>
+            <p class="when">Mar 2025 – Present · thesis phase</p>
+            <p>Coursework: Additive Manufacturing, CAD Design, Advanced Modelling &amp; Simulation, Cyber-Physical
+              Systems, Advanced Robotics, ROS, Human-Machine Interfaces (VR/AR), Functional Safety.</p>
+          </div>
+          <div class="edu-item">
+            <h3>B.Tech. Mechanical Engineering</h3>
+            <p class="org">TKR Engineering College, affiliated with JNTU Hyderabad</p>
+            <p class="when">Jun 2018 – Jun 2022</p>
+            <p>Core subjects: FEM, Thermodynamics, Fluid Mechanics, Metallurgy, Theory of Machines, Manufacturing
+              Processes.</p>
+          </div>
+        </div>
+        <div>
+          <div class="section-head">
+            <p class="eyebrow">Recognition</p>
+            <h2>Awards</h2>
+          </div>
+          <div class="award">
+            <span class="medal" aria-hidden="true">🏅</span>
+            <div>
+              <h3>"On the Fly" Award</h3>
+              <p>IHI Corporation / GE9x programme — awarded twice, March 2024, for design and integration
+                quality.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="training">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Training</p>
+        <h2>Hands-On Additive Manufacturing</h2>
+      </div>
+      <div class="edu-item">
+        <h3>Advanced Manufacturing Technologies — Summer School</h3>
+        <p class="org">University of West Bohemia, Faculty of Mechanical Engineering</p>
+        <p class="when">Feb 2026 · Pilsen, Czech Republic</p>
+        <p>Hands-on operation of industrial LPBF metal and FDM printers — produced 3 physical parts end-to-end
+          from CAD to finished component. Covered topology optimisation, metals-vs-polymers process selection,
+          support strategy and post-processing. Included an industrial visit to a large-format robotic additive
+          manufacturing line (CEAD pellet-based system) at a Czech manufacturing facility.</p>
+      </div>
+      <div class="training-gallery">
+        <figure>
+          <img src="assets/pilsen-lpbf-part.jpg" alt="Hand holding a topology-optimised, lattice-structured metal part produced by laser powder bed fusion (LPBF) during the summer school, alongside other printed parts on a workbench.">
+          <figcaption>LPBF metal print produced during the hands-on sessions.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/pilsen-cead-robot.jpg" alt="Large-format robotic additive manufacturing system (CEAD) on the factory floor, with a robotic arm positioned over a metal build plate.">
+          <figcaption>Industrial visit — CEAD large-format robotic AM system.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/pilsen-group.jpg" alt="Group photo of the international student cohort outside the Faculty of Mechanical Engineering building in Pilsen, Czech Republic.">
+          <figcaption>Cohort outside the Faculty of Mechanical Engineering, Pilsen.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <strong>Email</strong>
+          <a href="mailto:tejaruthwikyadavchataboina@gmail.com">tejaruthwikyadavchataboina@gmail.com</a>
+        </div>
+        <div class="contact-card">
+          <strong>Phone</strong>
+          <a href="tel:+4915510140104">+49 15510140104</a>
+        </div>
+        <div class="contact-card">
+          <strong>LinkedIn</strong>
+          <a href="https://www.linkedin.com/in/tejaruthwik-yadav" target="_blank" rel="noopener">linkedin.com/in/tejaruthwik-yadav</a>
+        </div>
+        <div class="contact-card">
+          <strong>Address</strong>
+          <span>Holzgartenstraße 4, 93413 Cham, Bavaria, Germany</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>© 2026 Tejaruthwik Chataboina. Built as a static, single-page portfolio.</p>
   </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="section-label">Academic Background</div>
-  <h2 class="section-title">EDUCATION</h2>
-  <div class="edu-grid">
-    <div class="edu-card">
-      <div class="edu-period">Mar 2025 – Present · Cham, Germany</div>
-      <div class="edu-degree">M.ENG. MECHATRONIC &<br>CYBER-PHYSICAL SYSTEMS</div>
-      <div class="edu-uni">Technische Hochschule Deggendorf (THD)</div>
-      <div class="edu-grades">
-        <div class="grade-row"><span class="grade-subject">Mechatronic System Simulation</span><span class="grade-val top">1.0 ★</span></div>
-        <div class="grade-row"><span class="grade-subject">Cooperative & Autonomous Systems</span><span class="grade-val top">1.0 ★</span></div>
-        <div class="grade-row"><span class="grade-subject">Human Machine Interfaces (VR/AR)</span><span class="grade-val top">1.7</span></div>
-        <div class="grade-row"><span class="grade-subject">Cyber Physical Systems</span><span class="grade-val good">2.0</span></div>
-        <div class="grade-row"><span class="grade-subject">Adv. Modelling & Simulation</span><span class="grade-val good">2.0</span></div>
-        <div class="grade-row"><span class="grade-subject">Technologies of Additive Mfg.</span><span class="grade-val good">2.3</span></div>
-        <div class="grade-row"><span class="grade-subject">VR/AR in Systemtechnik</span><span class="grade-val good">2.3</span></div>
-      </div>
-      <div class="avg-row"><span class="avg-label">Semester Average</span><span class="avg-val">2.0</span></div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-period">Jun 2018 – Jun 2022 · Hyderabad, India</div>
-      <div class="edu-degree">B.TECH.<br>MECHANICAL ENGINEERING</div>
-      <div class="edu-uni">TKR College — JNTU Hyderabad</div>
-      <div class="edu-grades">
-        <div class="grade-row"><span class="grade-subject">Finite Element Methods</span><span class="grade-val top">A</span></div>
-        <div class="grade-row"><span class="grade-subject">Thermodynamics</span><span class="grade-val top">A</span></div>
-        <div class="grade-row"><span class="grade-subject">Fluid Mechanics</span><span class="grade-val top">A</span></div>
-        <div class="grade-row"><span class="grade-subject">Metallurgy</span><span class="grade-val top">A</span></div>
-        <div class="grade-row"><span class="grade-subject">Theory of Machines</span><span class="grade-val top">A</span></div>
-        <div class="grade-row"><span class="grade-subject">Manufacturing Processes</span><span class="grade-val top">A</span></div>
-      </div>
-      <div class="avg-row"><span class="avg-label">CGPA (≈ 2.2 German)</span><span class="avg-val">7.56</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">Selected Work</div>
-  <h2 class="section-title">PROJECTS</h2>
-  <div class="proj-grid">
-
-    <!-- AGV -->
-    <div class="proj-card featured">
-      <div class="proj-num">01</div>
-      <div class="proj-tag">Robotics · Mechatronics · Grade 1.0</div>
-      <div class="proj-title">VISION-GUIDED AGV — FULL SYSTEM DESIGN</div>
-      <div class="proj-desc">Full mechanical platform design in Fusion 360 for an Autonomous Guided Vehicle. Integrated sensor and drive systems with autonomous navigation validated end-to-end in MATLAB/Simulink and ROS/Gazebo simulation environment. Achieved top grade 1.0 at TH Deggendorf.</div>
-      <div class="proj-tech"><span class="ptag">Fusion 360</span><span class="ptag">MATLAB/Simulink</span><span class="ptag">ROS/Gazebo</span><span class="ptag">Autonomous Navigation</span><span class="ptag">Sensor Integration</span></div>
-    </div>
-
-    <!-- PILSEN with gallery -->
-    <div class="proj-card pilsen">
-      <div class="proj-num">02</div>
-      <div class="proj-tag">Additive Manufacturing · Summer School · Pilsen 2026</div>
-      <div class="proj-title">LPBF METAL AM — UNIVERSITY OF WEST BOHEMIA, PILSEN</div>
-      <div class="proj-desc">
-        Intensive summer school at the University of West Bohemia's Faculty of Mechanical Engineering. 
-        Hands-on operation of industrial LPBF metal 3D printers and FDM machines — produced 3 physical parts 
-        end-to-end from CAD design through to finished component. Covered topology optimisation workflows, 
-        AM process selection criteria (metals vs polymers), support strategy, and post-processing. 
-        Industrial visit to TGS included exposure to large-format robotic additive manufacturing with the 
-        CEAD pellet-based system.
-      </div>
-      <div class="proj-tech"><span class="ptag">LPBF Metal AM</span><span class="ptag">FDM</span><span class="ptag">Topology Optimisation</span><span class="ptag">CAD to Part</span><span class="ptag">Process Selection</span><span class="ptag">Post-Processing</span></div>
-
-
--->
-
-      <div class="gallery-label">Photo Documentation — Pilsen Summer School</div>
-      <div class="photo-grid" id="pilsen-gallery">
-
-        <div class="photo-item" data-index="0" data-caption="LPBF Metal 3D Printed Part — Stainless steel lattice tower structure with topology optimisation, produced end-to-end at Pilsen Summer School">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.47.jpeg" alt="LPBF Metal Part" loading="lazy">
-          <div class="photo-caption">LPBF Metal 3D Printed Part — lattice tower with topology optimisation</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="1" data-caption="THD international cohort arriving at Fakulta Strojní — University of West Bohemia, Pilsen, Czech Republic">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(1).jpeg" alt="Arrival at Fakulta Strojni" loading="lazy">
-          <div class="photo-caption">THD cohort arriving at Fakulta Strojní, University of West Bohemia</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="2" data-caption="Group photo outside Fakulta Strojní & Ekonomická — University of West Bohemia, Pilsen">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(2).jpeg" alt="Group at Fakulta" loading="lazy">
-          <div class="photo-caption">Group at Fakulta Strojní & Ekonomická — University of West Bohemia</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="3" data-caption="Inside Fakulta Strojní — Katedra Technologie Obrábění (Department of Machining Technology) with participants and instructors">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(3).jpeg" alt="Inside Katedra" loading="lazy">
-          <div class="photo-caption">Inside Fakulta Strojní — Katedra Technologie Obrábění with participants and instructors</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="4" data-caption="Group photo outside TGS industrial facility — site of large-format additive manufacturing industrial visit">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(4).jpeg" alt="TGS Facility" loading="lazy">
-          <div class="photo-caption">Group outside TGS industrial facility — large-format AM industrial visit</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="5" data-caption="Lecture on AM process comparison — FFF vs SLA build parameters including layer thickness, print time, and material properties">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(5).jpeg" alt="AM Lecture" loading="lazy">
-          <div class="photo-caption">Lecture on AM process comparison — FFF vs SLA build parameters</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="6" data-caption="CEAD Large-Format Robotic 3D Printer — Pellet-based thermoplastic extrusion system at TGS industrial facility, Pilsen">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(6).jpeg" alt="CEAD Robot" loading="lazy">
-          <div class="photo-caption">CEAD Large-Format Robotic 3D Printer — pellet-based thermoplastic printing at TGS</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="7" data-caption="Industrial visit to TGS — guided tour of Czech Top 100 manufacturing facility with CNC machining centres and AM production line">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(7).jpeg" alt="TGS Industrial Visit" loading="lazy">
-          <div class="photo-caption">Industrial visit to TGS — Czech Top 100 manufacturing facility tour</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="8" data-caption="Lecture on FDM Print Head Design (Tisková hlava) — Michaela Duchková, 3D Printing Project Dept., explaining pellet-based extrusion mechanics">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(8).jpeg" alt="FDM Print Head Lecture" loading="lazy">
-          <div class="photo-caption">Lecture on FDM Print Head Design — Michaela Duchková, 3D Printing Project Dept.</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="9" data-caption="THD group at TGS industrial facility — international participants after large-format robotic AM demonstration">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53%20(9).jpeg" alt="TGS Group" loading="lazy">
-          <div class="photo-caption">THD group at TGS — after large-format robotic AM demonstration</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="10" data-caption="Final day group photo outside Fakulta Strojní — end of Advanced Manufacturing Technologies Summer School, Pilsen 2026">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.19.53.jpeg" alt="Final Day Group" loading="lazy">
-          <div class="photo-caption">Final day group photo outside Fakulta Strojní — Pilsen Summer School 2026</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-        <div class="photo-item" data-index="11" data-caption="Topology Optimised Bracket — Department of Machining Technology slide showing volume reduction from 4241mm³ to 3709mm³ with lattice support strategy">
-          <img src="WhatsApp%20Image%202026-03-14%20at%2012.24.58.jpeg" alt="Topology Bracket Slide" loading="lazy">
-          <div class="photo-caption">Topology Optimised Bracket — volume from 4241mm³ → 3709mm³ with AM support strategy</div>
-          <div class="photo-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></div>
-        </div>
-
-      </div>
-
-    <!-- LernFluent -->
-    <div class="proj-card">
-      <div class="proj-num">03</div>
-      <div class="proj-tag">AI · Chrome Extension · Python</div>
-      <div class="proj-title">LERNFLUENT — AI GERMAN LEARNING TOOL</div>
-      <div class="proj-desc">Chrome extension using OpenAI Whisper for real-time German speech-to-text subtitle generation on any video, with Claude AI word explanations on hover/click. Full-stack: Python WebSocket server, real-time audio processing, browser extension UI. Built to help international students learn German through daily video content.</div>
-      <div class="proj-tech"><span class="ptag">Python</span><span class="ptag">Whisper AI</span><span class="ptag">Claude API</span><span class="ptag">WebSockets</span><span class="ptag">Chrome Extension</span></div>
-    </div>
-
-    <!-- GE9x FEA -->
-    <div class="proj-card">
-      <div class="proj-num">04</div>
-      <div class="proj-tag">Aerospace · FEA</div>
-      <div class="proj-title">GE9x ENGINE COMPONENT ANALYSIS</div>
-      <div class="proj-desc">Thermomechanical FEA of LPT and HPC components for the GE9x programme using ANSYS APDL and HyperMesh. Defined load cases and boundary conditions for aerospace-grade structural assessment. Award-winning work at Quest Global / IHI.</div>
-      <div class="proj-tech"><span class="ptag">ANSYS APDL</span><span class="ptag">HyperMesh</span><span class="ptag">Thermomechanical FEA</span><span class="ptag">GE9x</span></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-bg-text">CONTACT</div>
-  <div class="section-label" style="justify-content:center">Reach Out</div>
-  <h2 class="contact-title">LET'S <span>WORK</span><br>TOGETHER</h2>
-  <p class="contact-sub">Open to working student positions, internships, and engineering roles in Germany. Available 18h/week from April 2026.</p>
-  <div class="contact-cards">
-    <a href="mailto:tejaruthwikyadavchataboina@gmail.com" class="contact-card">
-      <span class="contact-card-icon">✉</span>
-      <span class="contact-card-label">Email</span>
-      <span class="contact-card-val">Gmail</span>
-    </a>
-    <a href="tel:+4915510140104" class="contact-card">
-      <span class="contact-card-icon">📞</span>
-      <span class="contact-card-label">Phone</span>
-      <span class="contact-card-val">+49 15510140104</span>
-    </a>
-    <a href="https://linkedin.com/in/chataboina-tejaruthwik-yadav-6523b8220" target="_blank" class="contact-card">
-      <span class="contact-card-icon">in</span>
-      <span class="contact-card-label">LinkedIn</span>
-      <span class="contact-card-val">View Profile</span>
-    </a>
-    <a href="https://tejamaruthi7906.github.io/tejaruthwik.github.io" target="_blank" class="contact-card">
-      <span class="contact-card-icon">🌐</span>
-      <span class="contact-card-label">Portfolio</span>
-      <span class="contact-card-val">Live Website</span>
-    </a>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-text">© 2026 · Tejaruthwik Yadav Chataboina · Cham, Bavaria</div>
-  <div class="footer-coords">48°8′N 12°57′E · DEGGENDORF, BAVARIA, GERMANY</div>
 </footer>
 
-<script>
-// Cursor
-const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.proj-card,.edu-card,.training-card,.photo-item').forEach(el=>{el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';});el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';});});
-
-// Particles
-const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
-canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-const pts=Array.from({length:50},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,s:Math.random()*1.2+.3,o:Math.random()*.35+.1,c:Math.random()>.7?'#FF6B1A':'#1A9FFF'}));
-(function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,Math.PI*2);ctx.fillStyle=p.c+Math.floor(p.o*255).toString(16).padStart(2,'0');ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(139,168,190,${.05*(1-d/110)})`;ctx.lineWidth=.5;ctx.stroke();}}requestAnimationFrame(draw);})();
-
-// Scroll reveal
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.12});
-document.querySelectorAll('.titem,.proj-card,.edu-card,.training-card').forEach(el=>obs.observe(el));
-
-// Skill bars
-const skillObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const f=e.target.querySelector('.skill-fill');if(f)setTimeout(()=>f.style.width=e.target.dataset.pct+'%',300);}});},{threshold:0.3});
-document.querySelectorAll('.skill-row').forEach(el=>skillObs.observe(el));
-
-// Lightbox
-const photos=Array.from(document.querySelectorAll('.photo-item'));
-const lb=document.getElementById('lightbox');
-const lbImg=document.getElementById('lightbox-img');
-const lbCap=document.getElementById('lightbox-caption');
-const lbCounter=document.getElementById('lightbox-counter');
-let currentIdx=0;
-
-function openLightbox(idx){
-  currentIdx=idx;
-  const item=photos[idx];
-  lbImg.src=item.querySelector('img').src;
-  lbCap.textContent=item.dataset.caption||'';
-  lbCounter.textContent=(idx+1)+' / '+photos.length;
-  lb.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function closeLightbox(){
-  lb.classList.remove('open');
-  document.body.style.overflow='';
-}
-
-photos.forEach((item,i)=>item.addEventListener('click',()=>openLightbox(i)));
-document.getElementById('lightbox-close').addEventListener('click',closeLightbox);
-document.getElementById('lightbox-prev').addEventListener('click',()=>openLightbox((currentIdx-1+photos.length)%photos.length));
-document.getElementById('lightbox-next').addEventListener('click',()=>openLightbox((currentIdx+1)%photos.length));
-lb.addEventListener('click',e=>{if(e.target===lb)closeLightbox();});
-document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')openLightbox((currentIdx-1+photos.length)%photos.length);if(e.key==='ArrowRight')openLightbox((currentIdx+1)%photos.length);});
-</script>
 </body>
 </html>
