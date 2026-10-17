@@ -458,6 +458,7 @@ footer.site{
   .wrap{ max-width: 100%; padding: 0; }
 
   .hero{ padding: 0.3rem 0 0.6rem; }
+  .hero-inner{ flex-direction: row; align-items: flex-start; gap: 1rem; }
   .hero h1{ font-size: 20pt; margin: 0.15rem 0 0.2rem; }
   .hero .role{ font-size: 10.5pt; margin: 0 0 0.4rem; }
   .hero p.lede{ font-size: 9.3pt; max-width: 100%; }
@@ -507,7 +508,7 @@ footer.site{
   .skill-card h3{ font-size: 7.6pt; margin-bottom: 0.3rem; }
   .skill-card li{ font-size: 8.1pt; padding: 0.15rem 0; }
 
-  .two-col{ gap: 1rem; }
+  .two-col{ grid-template-columns: 1fr 1fr; gap: 1rem; }
   .edu-item{ margin-bottom: 0.7rem; }
   .edu-item h3{ font-size: 9.5pt; }
   .edu-item .org, .edu-item .when{ font-size: 8pt; }
